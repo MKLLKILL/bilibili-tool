@@ -1,0 +1,44 @@
+{
+  "server": {
+    "port": 3000,
+    "host": "127.0.0.1"
+  },
+  "browser": {
+    "headless": false,
+    "profileDir": "./browser-profiles/default",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "viewport": { "width": 1280, "height": 720 },
+    "startDelayMs": 5000
+  },
+  "collection": {
+    "maxRooms": 5,
+    "sseBufferSize": 200,
+    "behaviorSimulation": {
+      "minIntervalMs": 30000,
+      "maxIntervalMs": 90000
+    },
+    "danmakuCallbackDelayMin": 100,
+    "danmakuCallbackDelayMax": 500,
+    "healthCheckIntervalMs": 60000,
+    "reconnect": {
+      "initialDelayMs": 5000,
+      "maxDelayMs": 120000,
+      "maxRetries": 10
+    }
+  },
+  "database": {
+    "path": "./data/biliinsight.db",
+    "retentionDays": {
+      "realtimeEvents": 90,
+      "danmuRecords": 90,
+      "giftRecords": 180,
+      "enterRecords": 180
+    }
+  },
+  "llm": {
+    "provider": "ollama",
+    "baseUrl": "http://localhost:11434",
+    "model": "qwen2.5:7b",
+    "dailyCallLimit": 100
+  }
+}

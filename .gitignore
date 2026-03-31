@@ -1,0 +1,18 @@
+# 隐私 / 认证数据
+cookie.json
+browser-profiles/
+
+# 数据库与运行时数据
+data/
+logs/
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Claude Code 本地配置
+.claude/
+
+# 系统文件
+.DS_Store
+Thumbs.db

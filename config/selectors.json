@@ -1,0 +1,13 @@
+{
+  "danmakuContainer": "#chat-items",
+  "danmakuHistoryContainer": "#chat-history-list",
+  "danmakuItem": ".chat-item.danmaku-item",
+  "fansMedalContainer": ".fans-medal-item-ctnr",
+  "fansMedalContent": ".fans-medal-content",
+  "fansMedalLevel": ".fans-medal-level-font",
+  "fansMedalGuard": ".fans-medal-label.medal-guard",
+  "wealthMedal": ".wealth-medal-ctnr .wealth-medal",
+  "adminIcon": ".admin-icon",
+  "onlineCount": ".item",
+  "onlineCountPattern": "房间观众\\((\\d+)\\)"
+}

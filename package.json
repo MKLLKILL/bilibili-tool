@@ -1,0 +1,20 @@
+{
+  "name": "biliinsight",
+  "version": "0.1.0",
+  "description": "B站直播用户洞察与运营助手",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "playwright": "^1.44.0",
+    "express": "^4.19.2",
+    "bilibili-live-ws": "^6.3.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

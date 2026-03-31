@@ -1,0 +1,8 @@
+<div class="chat-item danmaku-item" data-uname="ちんりん沉沦" data-type="0" data-show_reply="true" data-replymid="0" data-uid="489755474" data-ts="1774902190" data-ct="9FB90AB9" data-danmaku="1500w的代价出了异色狼" data-score="80" data-timestamp="1774902196" data-isunilivedanmaku="undefined" data-id_str="4997033ddf5a43223e3d8e586569cadb4993"><div class="danmaku-item-left"><div class="wealth-medal-ctnr fans-medal-item-target dp-i-block p-relative v-middle" title="这是 TA 的荣耀等级勋章 ●ω●" style="width: 36px; height: 16px; margin-right: 4px; cursor: pointer;"><img class="wealth-medal p-absolute" src="https://i1.hdslb.com/bfs/live/d5625ac19f4b3218c35f58befb7117676115bd91.png@80q_54w_24h.webp" style="width: 36px; height: 16px;"></div><div class="fans-medal-item-ctnr fans-medal-item-target dp-i-block p-relative v-middle" title="这是 TA 的粉丝勋章 =‿=✧" style="margin-left: 0" data-anchor-id="194484313">
+  <div style="--borderColor: #3FB4F699; background-image: linear-gradient(45deg, #3FB4F699, #3FB4F699);" class="fans-medal-item">
+    <div class="fans-medal-label false false">
+      <div class="fans-medal-content" :style="color: #FFFFFF">ASAKI</div>
+    </div>
+    <div class="fans-medal-level "><div class="fans-medal-level-font" style="color: #FFFFFF">27</div></div>
+  </div>
+  </div><div class="common-nickname-wrapper  "><span class="user-name v-middle pointer open-menu">ちんりん沉沦 : </span></div></div><span class="danmaku-item-right v-middle pointer ts-dot-2 open-menu" data-danmu-click-bound="1">1500w的代价出了异色狼</span></div>
