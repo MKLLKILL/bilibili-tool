@@ -1,0 +1,77 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #ffffff;
+  --bg-secondary: #f5f7fa;
+  --bg-hover:     #eef2f7;
+  --primary:      #0084cc;
+  --primary-light:#e6f4ff;
+  --border:       #e4e7ed;
+  --text:         #1a1a1a;
+  --text-muted:   #909399;
+  --text-secondary:#606266;
+  --success:      #67c23a;
+  --warning:      #e6a23c;
+  --danger:       #f56c6c;
+  --guard-3:      #00d1f1;   /* 舰长蓝 */
+  --guard-2:      #e17aff;   /* 提督紫 */
+  --guard-1:      #f8c558;   /* 总督金 */
+  --gift-bg:      #fff3e0;
+  --gift-color:   #e65100;
+  --sc-bg:        #fffde7;
+  --sc-color:     #f57f17;
+  --radius:       6px;
+  --shadow:       0 1px 4px rgba(0,0,0,.08);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+               'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root { height: 100vh; display: flex; flex-direction: column; }
+
+/* ── 滚动条 ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── 按钮 ── */
+button {
+  cursor: pointer; border: none; background: none;
+  font-size: 13px; font-family: inherit;
+}
+.btn-primary {
+  background: var(--primary); color: #fff;
+  padding: 5px 12px; border-radius: var(--radius);
+  transition: opacity .15s;
+}
+.btn-primary:hover { opacity: .85; }
+.btn-ghost {
+  color: var(--text-muted); padding: 4px 8px;
+  border-radius: var(--radius); transition: background .15s;
+}
+.btn-ghost:hover { background: var(--bg-hover); color: var(--text); }
+.btn-danger { color: var(--danger); }
+.btn-danger:hover { background: #fff0f0; }
+
+/* ── 输入框 ── */
+input {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 5px 10px; font-size: 13px; font-family: inherit;
+  outline: none; background: var(--bg); color: var(--text);
+  transition: border-color .15s;
+}
+input:focus { border-color: var(--primary); }
+
+/* ── 通用标签 ── */
+.tag {
+  display: inline-block; padding: 1px 6px;
+  border-radius: 3px; font-size: 11px; font-weight: 600;
+}

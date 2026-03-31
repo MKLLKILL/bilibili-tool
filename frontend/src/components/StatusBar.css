@@ -1,0 +1,19 @@
+.status-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px; height: 44px; min-height: 44px;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow); z-index: 10;
+}
+.status-bar__logo {
+  font-size: 15px; font-weight: 700; color: var(--primary); letter-spacing: .5px;
+}
+.status-bar__info { display: flex; align-items: center; gap: 16px; }
+.status-bar__user { display: flex; align-items: center; gap: 5px; color: var(--text-secondary); }
+.status-bar__user--warn { color: var(--danger); }
+.status-bar__rooms { color: var(--text-muted); }
+
+.dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
+.dot--green { background: var(--success); }
+.dot--red   { background: var(--danger); }
+.dot--blue  { background: var(--primary); }
+.dot--gray  { background: var(--text-muted); }

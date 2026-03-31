@@ -12,7 +12,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const { checkLoginStatus, triggerLogin } = require('./auth');
+const { checkLoginStatus, triggerLogin, openUIPage } = require('./auth');
 
 // ─── 日志同时写入 logs/app.log（按天滚动，保留 7 天）──────────────────────────
 const LOG_DIR = path.resolve('logs');
@@ -55,6 +55,7 @@ pruneOldLogs();
 const { stmts, pruneOldData } = require('./db');
 const { startRoom } = require('./collector');
 const routes = require('./routes');
+const { resetHeartbeatTimer } = routes;
 const config = require('../config/default.json');
 
 const app = express();
@@ -92,6 +93,12 @@ async function main() {
   await new Promise(resolve => app.listen(port, host, resolve));
   console.log(`[App] API 服务已启动：http://${host}:${port}`);
 
+  // 启动心跳计时（等待前端首次连接）
+  resetHeartbeatTimer();
+
+  // 通知父进程后端已就绪（供 start.js 触发打开 UI）
+  if (process.send) process.send({ type: 'backend-ready' });
+
   // 3. 恢复已配置的房间
   const rooms = stmts.listRooms();
   if (rooms.length > 0) {
@@ -109,4 +116,12 @@ async function main() {
 main().catch(err => {
   console.error('[App] 启动失败:', err);
   process.exit(1);
+});
+
+// 监听父进程 IPC（start.js 发来 open-ui 指令）
+process.on('message', async (msg) => {
+  if (msg?.type === 'open-ui') {
+    const { openUIPage } = require('./auth');
+    await openUIPage(msg.url).catch(err => console.warn('[App] 打开 UI 失败:', err.message));
+  }
 });

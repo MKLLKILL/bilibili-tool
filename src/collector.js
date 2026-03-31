@@ -269,6 +269,10 @@ function startHealthCheck(page, roomId) {
 // ─── 启动 / 停止直播间采集 ───────────────────────────────────────────────────
 
 async function startRoom(roomId) {
+  // 兼容旧数据库中存储了完整 URL 的 room_id
+  roomId = parseRoomId(roomId);
+  if (!roomId) return;
+
   if (activeRooms.has(roomId)) {
     console.log(`[Collector] 房间 ${roomId} 已在采集中`);
     return;

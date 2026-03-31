@@ -126,4 +126,26 @@ router.post('/auth/login', async (req, res) => {
   }
 });
 
+// ─── 心跳 / 浏览器存活检测 ───────────────────────────────────────────────────
+// 前端每 10s POST 一次；超过 20s 无心跳则认为浏览器已关闭，进程自动退出
+
+let lastHeartbeat = Date.now();
+let heartbeatTimer = null;
+
+function resetHeartbeatTimer() {
+  clearTimeout(heartbeatTimer);
+  // 给 25s 窗口（兼容页面切换/短暂无网络）
+  heartbeatTimer = setTimeout(() => {
+    console.log('[App] 浏览器连接超时，自动退出');
+    process.exit(0);
+  }, 25000);
+}
+
+router.post('/heartbeat', (req, res) => {
+  lastHeartbeat = Date.now();
+  resetHeartbeatTimer();
+  res.json({ ok: true });
+});
+
 module.exports = router;
+module.exports.resetHeartbeatTimer = resetHeartbeatTimer;

@@ -1,0 +1,8 @@
+.ev-badge {
+  display: inline-block; padding: 1px 7px;
+  border-radius: 10px; font-size: 12px;
+}
+.ev-badge--gift  { background: var(--gift-bg);  color: var(--gift-color); }
+.ev-badge--sc    { background: var(--sc-bg);    color: var(--sc-color); font-weight: 600; }
+.ev-badge--guard { background: #faf5ff; border: 1px solid var(--guard-2); color: #7c3aed; }
+.ev-badge--enter { color: var(--text-muted); font-size: 11px; }

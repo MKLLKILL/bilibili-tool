@@ -1,0 +1,33 @@
+.user-stats {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg); overflow: hidden; min-height: 0;
+}
+.user-stats__header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 12px; border-bottom: 1px solid var(--border);
+  font-weight: 600; font-size: 12px; color: var(--text-secondary);
+  background: var(--bg-secondary); flex-shrink: 0;
+}
+.user-stats__meta { display: flex; align-items: center; gap: 4px; color: var(--text-muted); font-weight: 400; }
+.user-stats__table-wrap { overflow: auto; flex: 1; }
+
+.user-stats__table {
+  width: 100%; border-collapse: collapse; font-size: 12px;
+}
+.user-stats__table th {
+  position: sticky; top: 0; background: var(--bg-secondary);
+  padding: 6px 10px; text-align: left; font-weight: 600;
+  color: var(--text-muted); white-space: nowrap;
+  border-bottom: 1px solid var(--border); cursor: pointer;
+  user-select: none;
+}
+.user-stats__table th:hover { color: var(--primary); }
+.user-stats__table th.active { color: var(--primary); }
+.user-stats__table td {
+  padding: 5px 10px; border-bottom: 1px solid var(--border);
+  color: var(--text); white-space: nowrap;
+}
+.user-stats__table tr:last-child td { border-bottom: none; }
+.user-stats__table tr:hover td { background: var(--bg-secondary); }
+.user-stats__empty { text-align: center; color: var(--text-muted); padding: 20px 0; }

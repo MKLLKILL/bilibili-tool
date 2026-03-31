@@ -21,6 +21,7 @@ const BILIBILI_LOGIN_CHECK = 'https://api.bilibili.com/x/web-interface/nav';
 const COOKIE_FILE = path.resolve('cookie.json');
 
 let sharedContext = null; // 全局共享的 BrowserContext
+let contextInitPromise = null; // 防止并发重入
 
 /**
  * 将 cookie.json（键值对格式）转为 Playwright cookie 数组并注入 context
@@ -57,28 +58,41 @@ async function importCookiesIfPresent(context) {
 async function getSharedContext() {
   if (sharedContext) return sharedContext;
 
-  // 确保 profile 目录存在
-  fs.mkdirSync(PROFILE_DIR, { recursive: true });
+  // 防止并发调用重复启动 Chromium
+  if (contextInitPromise) return contextInitPromise;
 
-  sharedContext = await chromium.launchPersistentContext(PROFILE_DIR, {
-    headless: config.browser.headless,
-    args: [
-      '--disable-blink-features=AutomationControlled',
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-    ],
-    userAgent: config.browser.userAgent,
-    viewport: config.browser.viewport,
-  });
+  contextInitPromise = (async () => {
+    // 确保 profile 目录存在
+    fs.mkdirSync(PROFILE_DIR, { recursive: true });
 
-  sharedContext.on('close', () => {
-    sharedContext = null;
-  });
+    // 清理可能残留的 SingletonLock，防止崩溃后无法启动
+    const lockFile = path.join(PROFILE_DIR, 'SingletonLock');
+    try { fs.unlinkSync(lockFile); } catch (_) {}
 
-  // 导入 cookie.json（若存在）
-  await importCookiesIfPresent(sharedContext);
+    const ctx = await chromium.launchPersistentContext(PROFILE_DIR, {
+      headless: config.browser.headless,
+      args: [
+        '--disable-blink-features=AutomationControlled',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+      ],
+      userAgent: config.browser.userAgent,
+      viewport: config.browser.viewport,
+    });
 
-  return sharedContext;
+    ctx.on('close', () => {
+      sharedContext = null;
+      contextInitPromise = null;
+    });
+
+    // 导入 cookie.json（若存在）
+    await importCookiesIfPresent(ctx);
+
+    sharedContext = ctx;
+    return sharedContext;
+  })();
+
+  return contextInitPromise;
 }
 
 /**
@@ -155,4 +169,21 @@ async function closeContext() {
   }
 }
 
-module.exports = { getSharedContext, checkLoginStatus, triggerLogin, closeContext };
+/**
+ * 在 Playwright 共享 context 里打开 UI 页面，关闭所有空白页
+ */
+async function openUIPage(url) {
+  const context = await getSharedContext();
+  // 把已有的 about:blank 空白页导航到 UI，多余的关掉
+  const pages = context.pages();
+  const blank = pages.filter(p => p.url() === 'about:blank');
+  if (blank.length > 0) {
+    await blank[0].goto(url, { waitUntil: 'domcontentloaded' }).catch(() => {});
+    for (const p of blank.slice(1)) await p.close().catch(() => {});
+  } else {
+    const p = await context.newPage();
+    await p.goto(url, { waitUntil: 'domcontentloaded' }).catch(() => {});
+  }
+}
+
+module.exports = { getSharedContext, checkLoginStatus, triggerLogin, closeContext, openUIPage };
